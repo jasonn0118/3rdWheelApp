@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#434343"
+    android:padding="4dp"
+    tools:context=".FragmentViewTabs">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/ViewFragment_ViewTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/App_Primary_Color"
+        app:tabTextColor="@color/App_Secondary_Color">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_rent" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Purchase" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_host" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_profile" />
+    </com.google.android.material.tabs.TabLayout>
+</FrameLayout>
