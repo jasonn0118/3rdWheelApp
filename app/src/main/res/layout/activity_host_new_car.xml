@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/App_Primary_Color"
+    android:padding="4dp"
+    tools:context=".HostNewCarActivity">
+
+    <Button
+        android:id="@+id/hostnew_btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/App_Secondary_Color"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/hostnew_btn_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add Car"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_price" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_CarName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Car Name: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_name" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fare/Hour: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
+
+        <EditText
+            android:id="@+id/hostnew_txt_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_CarName"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_lbl_RentSell" />
+
+        <EditText
+            android:id="@+id/hostnew_txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car Fare"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_price"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_name" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_RentSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rent out a car"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_FareBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/hr"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_txt_price"
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

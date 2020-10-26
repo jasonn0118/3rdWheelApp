@@ -1,5 +1,7 @@
 package com.example.a3rdwheel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,12 @@ import java.util.List;
 
 public class HostCarListAdapter extends RecyclerView.Adapter<HostCarListAdapter.CarViewHolder> {
     List<String> carDisplayList;
+    Context cntxt;
 
     //constructor
-    public HostCarListAdapter(List<String> carList){
+    public HostCarListAdapter(Context context, List<String> carList){
         this.carDisplayList = carList;
+        this.cntxt = context;
     }
 
     //viewholder onCreate
@@ -36,8 +39,6 @@ public class HostCarListAdapter extends RecyclerView.Adapter<HostCarListAdapter.
         myHolder.carName = itemView.findViewById(R.id.listitem_host_CarName);
         myHolder.carItemView = itemView;
 
-        //attach interface onclick functions
-
         return myHolder;
     }
 
@@ -45,6 +46,17 @@ public class HostCarListAdapter extends RecyclerView.Adapter<HostCarListAdapter.
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         holder.carName.setText(carDisplayList.get(position));
+
+        //attach interface onclick functions
+        holder.carItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //go to host car details - TODO: car ID will determine which car to display
+                Intent newCarIntent = new Intent(cntxt, HostCarDetailActivity.class);
+                newCarIntent.putExtra("TARGETCAR", position);
+                cntxt.startActivity(newCarIntent);
+            }
+        });
     }
 
     @Override
