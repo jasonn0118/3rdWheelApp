@@ -2,9 +2,12 @@ package com.example.a3rdwheel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -24,20 +27,15 @@ public class RentalActivity extends AppCompatActivity {
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
 
+    private CarListAdapter userListAdapter;
+
+    private List<Car> userCarList= new ArrayList<>();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental);
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
-        Button btnGoList = findViewById(R.id.btnUserList);
-        btnGoList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RentalActivity.this, UserListActivity.class);
-                startActivity(intent);
-            }
-        });
 
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
@@ -49,6 +47,7 @@ public class RentalActivity extends AppCompatActivity {
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right){
                     Toast.makeText(RentalActivity.this, "Save it", Toast.LENGTH_SHORT).show();
+
                 }
                 if (direction == Direction.Left){
                     Toast.makeText(RentalActivity.this, "Remove it", Toast.LENGTH_SHORT).show();
@@ -67,7 +66,9 @@ public class RentalActivity extends AppCompatActivity {
 
             @Override
             public void onCardAppeared(View view, int position) {
-
+                Car appearedCar = adapter.getItems().get(position);
+                //Log.d("Hwayoung", appearedCar.getType());
+                userCarList.add(adapter.getItems().get(position));
             }
 
             @Override
@@ -89,15 +90,22 @@ public class RentalActivity extends AppCompatActivity {
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
+
+        RecyclerView recyclerView = findViewById(R.id.rvCarList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        userListAdapter = new CarListAdapter(addList());
+        recyclerView.setAdapter(userListAdapter);
+
     }
 
     private List<Car> addList() {
         List<Car> items = new ArrayList<>();
-        items.add(new Car(R.drawable.porsche, "Porsche", "2019", "$300/day"));
-        items.add(new Car(R.drawable.ferrari, "Ferrari", "2019", "$300/day"));
-        items.add(new Car(R.drawable.benz, "Marcedes-Benz", "2019", "$200/day"));
-        items.add(new Car(R.drawable.jeep, "Jeep", "2019", "$200/day"));
-        items.add(new Car(R.drawable.mini, "Mini Cooper", "2019", "$100/day"));
+        items.add(new Car(R.drawable.porsche, "Porsche", "2019", "$300/day","One of the most luxurious cars...."));
+        items.add(new Car(R.drawable.ferrari, "Ferrari", "2019", "$300/day","One of the most luxurious cars...."));
+        items.add(new Car(R.drawable.benz, "Marcedes-Benz", "2019", "$200/day","One of the most luxurious cars...."));
+        items.add(new Car(R.drawable.jeep, "Jeep", "2019", "$200/day","One of the most luxurious cars...."));
+        items.add(new Car(R.drawable.mini, "Mini Cooper", "2019", "$100/day","One of the most luxurious cars...."));
         return items;
     }
 
