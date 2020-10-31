@@ -1,6 +1,7 @@
 package com.example.a3rdwheel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,12 +14,19 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Standard client may become host when they enter this page.
+// Ask them to register as host the first time, and if YES, change status of user into a host
+// and allow them to enter this activity's main layout
+
 public class HostActivity extends AppCompatActivity {
+
+    boolean host = false;   //is this user a host?
 
     //TODO: PLACEHOLDER. get car datas From database
     List<String> rentCars = new ArrayList<>(Arrays.asList("SUV","Minivan","Pickup","Campervan"));
@@ -33,11 +41,13 @@ public class HostActivity extends AppCompatActivity {
         FragmentViewTabs fvt = FragmentViewTabs.newInstance(2);
         FragmentManager fManager = getSupportFragmentManager();                 //manager to control
         FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
-        transaction.add(R.id.host_fragment_navigation, fvt).addToBackStack(null).commit();     //trans process(container, fragment)
+        transaction.add(R.id.host_fragment_navigation, fvt).commit();     //trans process(container, fragment)
 
         RecyclerView carListDisplay = findViewById(R.id.host_rcycl_CarList);
         carListDisplay.setLayoutManager(new LinearLayoutManager(this));
 
+        //TODO: detect if user is a host
+        //host = isUserHost(userId);
         //switch triggers -> change recycler datas
         displayCarsBySwitches();
         Switch displayRentSwitch = findViewById(R.id.host_switch_ViewRent);
@@ -75,13 +85,33 @@ public class HostActivity extends AppCompatActivity {
             }
         });
 
-        //button for total statistics of this guy
-        Button gotoStatsButton = findViewById(R.id.host_btn_TotalStats);
-        gotoStatsButton.setOnClickListener(new View.OnClickListener() {
+        if(host){  //if user is a host, hide the layout for registering & display main layout
+            ConstraintLayout hostRegLayout = findViewById(R.id.host_become_host);
+            hostRegLayout.setVisibility(View.GONE);
+            ConstraintLayout hostMainLayout = findViewById(R.id.host_main_layout);
+            hostMainLayout.setVisibility(View.VISIBLE);
+        }
+
+        //attach registration buttons for becoming a host (or not)
+        Button registerToHost = findViewById(R.id.host_become_host_btn_register);
+        registerToHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to host status
-                startActivity(new Intent(getBaseContext(),HostStatisticActivity.class));
+                //TODO: set database user role as 'host'
+                //hide the registration, show the main layout
+                ConstraintLayout hostRegLayout = findViewById(R.id.host_become_host);
+                hostRegLayout.setVisibility(View.GONE);
+                ConstraintLayout hostMainLayout = findViewById(R.id.host_main_layout);
+                hostMainLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(getBaseContext(),"You are now host",Toast.LENGTH_LONG).show();
+            }
+        });
+        Button notRegisterToHost = findViewById(R.id.host_become_host_btn_cancel);
+        notRegisterToHost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if do not become a host then quit
+                finish();
             }
         });
     }

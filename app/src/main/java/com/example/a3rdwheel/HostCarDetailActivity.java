@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+//TODO: Build HOST UPDATE FUNCTION.
+
 public class HostCarDetailActivity extends AppCompatActivity {
 
     @Override

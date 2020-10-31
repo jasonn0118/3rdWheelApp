@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/App_Secondary_Color"
         android:padding="3dp"
@@ -30,10 +30,11 @@
             android:id="@+id/hostnew_btn_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Add Car"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_price" />
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_AvailableDate" />
 
         <TextView
             android:id="@+id/hostnew_lbl_CarName"
@@ -48,7 +49,7 @@
             android:id="@+id/hostnew_lbl_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fare/Hour: "
+            android:text="Fare/Day: "
             app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
@@ -88,10 +89,87 @@
             android:id="@+id/hostnew_lbl_FareBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/hr"
+            android:text="/day"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
             app:layout_constraintStart_toEndOf="@+id/hostnew_txt_price"
             app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
+
+        <ImageView
+            android:id="@+id/hostnew_img_Car"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintEnd_toEndOf="@+id/hostnew_txt_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_price"
+            app:srcCompat="@drawable/ic_default_car" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click the image above to upload your car's photo"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_img_Car" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarDescription" />
+
+        <EditText
+            android:id="@+id/hostnew_txt_CarDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Description"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_description"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/hostnew_btn_AvailableDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select availability date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarLocation" />
+
+        <TextView
+            android:id="@+id/hostnew_txt_AvailableDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_btn_AvailableDate" />
+
+        <TextView
+            android:id="@+id/hostnew_lbl_CarLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarLocation" />
+
+        <EditText
+            android:id="@+id/hostnew_txt_CarLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Car location"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_CarLocation"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

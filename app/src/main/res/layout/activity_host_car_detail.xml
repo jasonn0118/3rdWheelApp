@@ -78,7 +78,23 @@
             android:text="Car Status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarLocation" />
+
+        <TextView
+            android:id="@+id/hostdetail_CarDescript"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Car Description"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hostdetail_TimesRented" />
+
+        <TextView
+            android:id="@+id/hostdetail_CarLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Car Location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarDescript" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
