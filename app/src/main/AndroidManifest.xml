@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.3rdWheel">
         <activity android:name=".RentalActivity"></activity>
-        <activity android:name=".UserListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
