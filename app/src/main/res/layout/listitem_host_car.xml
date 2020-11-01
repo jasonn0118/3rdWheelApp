@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:background="@color/App_Secondary_Color">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/listitem_host_CarImage"
