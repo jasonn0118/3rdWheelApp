@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="About Me"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@color/primaryColor"
                     />
                 <EditText
                     android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/userGrey"/>
+                    android:background="@color/lightGray"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="Email"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@color/primaryColor"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/userGrey"/>
+                    android:background="@color/lightGray"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="Phone"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@color/primaryColor"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +267,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/userGrey"/>
+                    android:background="@color/lightGray"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="Billing"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@color/primaryColor"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/userGrey"/>
+                    android:background="@color/lightGray"/>
             </LinearLayout>
 
 
