@@ -14,12 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-    }
-
-    //FIXME: go to hostActivity placeholder button function - delete once redundant
-    public void gotoHost(View v){
-            startActivity(new Intent(getBaseContext(),HostActivity.class));
     }
 
     public void logout(View view) {
