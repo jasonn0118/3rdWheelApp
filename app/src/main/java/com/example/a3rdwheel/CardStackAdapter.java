@@ -49,6 +49,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             type = itemView.findViewById(R.id.item_type);
             year = itemView.findViewById(R.id.item_year);
             price = itemView.findViewById(R.id.item_price);
+
+            //item click event here
         }
 
         void setData(Car data){

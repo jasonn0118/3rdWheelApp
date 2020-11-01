@@ -38,6 +38,8 @@ public class RentalActivity extends AppCompatActivity {
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
 
         manager = new CardStackLayoutManager(this, new CardStackListener() {
+
+
             @Override
             public void onCardDragging(Direction direction, float ratio) {
 
