@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "228928538432",
+    "firebase_url": "https://rdwheel-3436a.firebaseio.com",
+    "project_id": "rdwheel-3436a",
+    "storage_bucket": "rdwheel-3436a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228928538432:android:ac5f2257f0feb2eaa19ca5",
+        "android_client_info": {
+          "package_name": "com.example.a3rdwheel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228928538432-a7es4e5u06q7fk4rm9gjj5pr60g3uuen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN2L03EZK57uCeSMPGNvGH1orYIKU81Bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228928538432-a7es4e5u06q7fk4rm9gjj5pr60g3uuen.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
