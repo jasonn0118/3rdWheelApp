@@ -3,6 +3,9 @@
     package="com.example.a3rdwheel">
     
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--Permissions for camera & gallery access for car photos-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3rdWheel">
+        <activity android:name=".userprofile.SellerProfileActivity"/>
+        <activity android:name=".userprofile.UserProfile"/>
+        <activity android:name=".HostCarDetailActivity"></activity>
+        <activity android:name=".HostNewCarActivity" />
+        <activity android:name=".HostActivity" />
         <activity android:name=".RentalActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity">
