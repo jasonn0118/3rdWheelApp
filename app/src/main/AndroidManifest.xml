@@ -18,10 +18,8 @@
         <activity android:name=".userprofile.SellerProfileActivity"></activity>
         <activity android:name=".userprofile.UserProfile"> </activity>
         <activity android:name=".HostCarDetailActivity"></activity>
-        <activity android:name=".HostStatisticActivity" />
         <activity android:name=".HostNewCarActivity" />
         <activity android:name=".HostActivity" />
-        <activity android:name=".MainActivity">
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity">
             <intent-filter>
