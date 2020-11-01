@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Billing Amount"
-                android:textColor="@color/themeColor"
+                android:textColor="@color/primaryColor"
                 android:textSize="15sp" />
 
             <TextView
@@ -41,7 +41,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/userGrey" />
+                android:background="@color/lightGray" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Charged"
-                android:textColor="@color/themeColor"
+                android:textColor="@color/primaryColor"
                 android:textSize="15sp" />
 
             <TextView
@@ -69,7 +69,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/userGrey" />
+                android:background="@color/lightGray" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Credit Card"
-                android:textColor="@color/themeColor"
+                android:textColor="@color/primaryColor"
                 android:textSize="15sp" />
 
             <TextView
@@ -97,7 +97,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/userGrey" />
+                android:background="@color/lightGray" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,13 +110,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Card"
-                android:textColor="@color/themeColor"
+                android:textColor="@color/primaryColor"
                 android:layout_gravity="center"
                 android:textSize="15sp" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/userGrey" />
+                android:background="@color/lightGray" />
         </LinearLayout>
 
 
