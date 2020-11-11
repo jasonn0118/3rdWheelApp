@@ -58,14 +58,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/host_fragment_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -77,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rent out a car"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/host_fragment_navigation"
             app:layout_constraintEnd_toStartOf="@+id/host_btn_NewSale"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
@@ -87,10 +88,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Put a car for sale"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/host_btn_NewRent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/host_btn_NewRent" />
+            app:layout_constraintStart_toEndOf="@+id/host_btn_NewRent"
+            app:layout_constraintTop_toTopOf="@+id/host_btn_NewRent" />
 
         <Switch
             android:id="@+id/host_switch_ViewRent"
