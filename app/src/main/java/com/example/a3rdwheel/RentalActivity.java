@@ -1,6 +1,8 @@
 package com.example.a3rdwheel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,8 +39,13 @@ public class RentalActivity extends AppCompatActivity {
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
 
-        manager = new CardStackLayoutManager(this, new CardStackListener() {
+        //set bottom fragment
+        FragmentViewTabs fvt = FragmentViewTabs.newInstance(0);
+        FragmentManager fManager = getSupportFragmentManager();                 //manager to control
+        FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
+        transaction.add(R.id.rental_frm_navigation, fvt).commit();     //trans process(container, fragment)
 
+        manager = new CardStackLayoutManager(this, new CardStackListener() {
 
             @Override
             public void onCardDragging(Direction direction, float ratio) {

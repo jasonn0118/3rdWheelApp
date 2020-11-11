@@ -1,6 +1,8 @@
 package com.example.a3rdwheel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //set bottom fragment
+        FragmentViewTabs fvt = FragmentViewTabs.newInstance(0);
+        FragmentManager fManager = getSupportFragmentManager();                 //manager to control
+        FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
+        transaction.add(R.id.main_frm_navigation, fvt).commit();     //trans process(container, fragment)
     }
 
     public void logout(View view) {
