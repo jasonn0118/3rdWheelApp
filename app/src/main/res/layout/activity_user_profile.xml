@@ -35,14 +35,27 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/user_name"
+            android:id="@+id/user_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgUser"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:fontFamily="sans-serif-light"
-            android:text="New User"
+            android:layout_marginLeft="80dp"
+            android:text="First Name"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/user_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgUser"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/user_firstname"
+            android:fontFamily="sans-serif-light"
+            android:text="Last Name"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -50,7 +63,7 @@
             android:id="@+id/user_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_name"
+            android:layout_below="@id/user_firstname"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
@@ -58,7 +71,20 @@
             android:textColor="@color/teal_700"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/user_userorhost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_address"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="User"
+            android:textColor="@color/teal_700"
+            android:textSize="15sp" />
+
         <ImageView
+            android:id="@+id/user_setting"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -66,19 +92,7 @@
             android:layout_marginRight="15dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_settings" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_back" />
-
-
+            android:src="@drawable/ic_edit" />
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -86,25 +100,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userRelative"
-        android:background="@drawable/grad"
+        android:textColor="@color/black"
         android:layout_marginTop="0dp">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/user_tabInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Info" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/user_tabTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Trip" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/user_tabBilling"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Billing" />
     </com.google.android.material.tabs.TabLayout>
 
@@ -114,239 +131,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/userTabBar"
         android:layout_alignParentBottom="true"
-         />
+         >
 
-    <!--    <LinearLayout-->
-<!--        android:id="@+id/linear_ratejoin"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/userRelative">-->
+    </androidx.viewpager.widget.ViewPager>
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingTop="5dp"-->
-<!--            android:paddingBottom="5dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:gravity="center"-->
-<!--            android:background="@drawable/grad">-->
+    <FrameLayout
+        android:id="@+id/user_frag_container"
+        android:name="com.example.a3rdwheel.userprofile.UserSettingFragment"
+        android:layout_width="317dp"
+        android:layout_height="574dp"
+        android:layout_margin="40dp"
+        tools:layout='@layout/fragment_user_setting'>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="4.2 "-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Rating"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textAllCaps="true"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--            </LinearLayout>-->
-
-<!--        </RelativeLayout>-->
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingTop="5dp"-->
-<!--            android:paddingBottom="5dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:gravity="center"-->
-<!--            android:background="@drawable/grad">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Oct 2020"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Joined"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textAllCaps="true"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--            </LinearLayout>-->
-<!--        </RelativeLayout>-->
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingTop="5dp"-->
-<!--            android:paddingBottom="5dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:gravity="center"-->
-<!--            android:background="@drawable/grad">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="0"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Total rides"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textAllCaps="true"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--            </LinearLayout>-->
-<!--        </RelativeLayout>-->
-<!--    </LinearLayout>-->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_below="@id/linear_ratejoin"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_centerInParent="true">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15sp"-->
-<!--                    android:text="About Me"-->
-<!--                    android:textColor="@color/themeColor"-->
-<!--                    />-->
-<!--                <EditText-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Type About me info "-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:fontFamily="sans-serif-light"/>-->
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:background="@color/userGrey"/>-->
-<!--            </LinearLayout>-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_marginTop="15dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15sp"-->
-<!--                    android:text="Email"-->
-<!--                    android:textColor="@color/themeColor"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="user@madeupemail.com"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:fontFamily="sans-serif-light"-->
-<!--                    android:layout_marginTop="10dp"/>-->
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:background="@color/userGrey"/>-->
-<!--            </LinearLayout>-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_marginTop="15dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15sp"-->
-<!--                    android:text="Trip History"-->
-<!--                    android:textColor="@color/themeColor"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="0 Km"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:fontFamily="sans-serif-light"-->
-<!--                    android:layout_marginTop="10dp"/>-->
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:background="@color/userGrey"/>-->
-<!--            </LinearLayout>-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_marginTop="15dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15sp"-->
-<!--                    android:text="Billing"-->
-<!--                    android:textColor="@color/themeColor"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="$0.00"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:fontFamily="sans-serif-light"-->
-<!--                    android:layout_marginTop="10dp"/>-->
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:background="@color/userGrey"/>-->
-<!--            </LinearLayout>-->
-
-
-
-
-<!--        </LinearLayout>-->
-
-
-<!--    </RelativeLayout>-->
+    </FrameLayout>
 
 </RelativeLayout>
