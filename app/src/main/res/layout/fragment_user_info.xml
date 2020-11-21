@@ -60,6 +60,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/user_txt_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -88,6 +89,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/user_txt_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -102,33 +104,62 @@
                     android:background="@color/lightGray" />
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="15dp"-->
-<!--                android:orientation="vertical">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Billing"-->
-<!--                    android:textColor="@color/themeColor"-->
-<!--                    android:textSize="15sp" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="15sp" />
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:fontFamily="sans-serif-light"-->
-<!--                    android:text="$0.00"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="18sp" />-->
+                <TextView
+                    android:id="@+id/user_txt_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Male"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:background="@color/userGrey" />-->
-<!--            </LinearLayout>-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightGray" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Driver License"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/user_txt_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Class 5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightGray" />
+            </LinearLayout>
 
         </LinearLayout>
 

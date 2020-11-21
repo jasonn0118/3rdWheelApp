@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.a3rdwheel.userprofile.UserProfile;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -56,7 +57,7 @@ public class FragmentViewTabs extends Fragment {
                 if(viewSelect.getSelectedTabPosition() != selectedTab){
                     switch(viewSelect.getSelectedTabPosition()) {
                         case 0: //switch to Renting Screen
-                            //TODO: display RENT ACTIVITY from fragment
+                            startActivity(new Intent(getContext(),RentalActivity.class));
                             break;
                         case 1: //switch to Purchase Screen
                             //TODO: display PURCHASE ACTIVITY from fragment
@@ -65,7 +66,7 @@ public class FragmentViewTabs extends Fragment {
                             startActivity(new Intent(getContext(),HostActivity.class));
                             break;
                         case 3: //switch to Profile Screen
-                            //TODO: display PROFILE ACTIVITY from fragment
+                            startActivity(new Intent(getContext(), UserProfile.class));
                             break;
                     }
                 }

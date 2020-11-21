@@ -180,6 +180,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/statsRelative"
         android:layout_below="@id/linear_ratejoin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -303,5 +304,13 @@
 
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/hostProfile_frm_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statsRelative">
+
+    </FrameLayout>
 
 </RelativeLayout>
