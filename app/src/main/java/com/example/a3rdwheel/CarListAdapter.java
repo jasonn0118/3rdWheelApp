@@ -1,5 +1,6 @@
 package com.example.a3rdwheel;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,8 +18,10 @@ import java.util.List;
 public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHolder> {
 
     private List<Car> catList;
+    private Context mContext;
 
-    public CarListAdapter(List<Car> carList) {
+    public CarListAdapter(Context mContext, List<Car> carList) {
+        this.mContext = mContext;
         this.catList = carList;
     }
 
@@ -40,26 +44,22 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView photo;
-        TextView type, price, description;
+        ImageView image;
+        TextView type, brand, model;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            photo = itemView.findViewById(R.id.imgViewPhoto);
+            image = itemView.findViewById(R.id.imgViewPhoto);
             type = itemView.findViewById(R.id.txtViewType);
-            price = itemView.findViewById(R.id.txtViewPrice);
-            description = itemView.findViewById(R.id.txtViewShortDescription);
+            brand = itemView.findViewById(R.id.txtViewPrice);
+            model = itemView.findViewById(R.id.txtViewShortDescription);
         }
 
         void setData(Car data){
-            Picasso.get()
-                    .load(data.getImage())
-                    .fit()
-                    .centerCrop()
-                    .into(photo);
+            Glide.with(mContext).load(data.getImageUrl()).into(image);
             type.setText(data.getType());
-            price.setText(data.getPrice());
-            description.setText(data.getShortDescription());
+            brand.setText(data.getBrand());
+            model.setText(data.getModel());
         }
     }
 }

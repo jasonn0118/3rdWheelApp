@@ -1,5 +1,6 @@
 package com.example.a3rdwheel;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
 
+    private Context mContext;
     private List<Car> items;
 
-    public CardStackAdapter(List<Car> items) {
+    public CardStackAdapter(Context mContext, List<Car> items) {
+        this.mContext = mContext;
         this.items = items;
     }
 
@@ -41,27 +45,23 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
-        TextView type, year, price;
+        TextView type, year, brand;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             type = itemView.findViewById(R.id.item_type);
             year = itemView.findViewById(R.id.item_year);
-            price = itemView.findViewById(R.id.item_price);
+            brand = itemView.findViewById(R.id.item_price);
 
             //item click event here
         }
 
         void setData(Car data){
-            Picasso.get()
-                    .load(data.getImage())
-                    .fit()
-                    .centerCrop()
-                    .into(image);
+            Glide.with(mContext).load(data.getImageUrl()).into(image);
             type.setText(data.getType());
             year.setText(data.getYear());
-            price.setText(data.getPrice());
+            brand.setText(data.getBrand());
         }
     }
 
