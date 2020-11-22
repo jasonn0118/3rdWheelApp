@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
         TabItem tabBilling = findViewById(R.id.user_tabBilling);
         ViewPager viewPager = findViewById(R.id.user_viewpager);
         ImageView imageView = findViewById(R.id.user_setting);
+        ImageView backButton = findViewById(R.id.user_back);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,13 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
                 }else {
                     displayFragment();
                 }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
