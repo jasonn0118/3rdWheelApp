@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,8 +50,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
             super(itemView);
             image = itemView.findViewById(R.id.imgViewPhoto);
             type = itemView.findViewById(R.id.txtViewType);
-            brand = itemView.findViewById(R.id.txtViewPrice);
-            model = itemView.findViewById(R.id.txtViewShortDescription);
+            brand = itemView.findViewById(R.id.txtViewBrand);
+            model = itemView.findViewById(R.id.txtViewModel);
         }
 
         void setData(Car data){

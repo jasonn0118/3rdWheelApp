@@ -1,12 +1,17 @@
 package com.example.a3rdwheel;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class Car {
+public class Car implements Serializable {
 
     //FirebaseStorage mFire
     String imageUrl;
@@ -67,40 +72,6 @@ public class Car {
         this.type = type;
     }
 
-/*
-    private int image;
-    private String type, year, price, shortDescription;
-
-    public Car() {
-    }
-
-    public Car(int image, String type, String year, String price, String shortDescription) {
-        this.image = image;
-        this.type = type;
-        this.year = year;
-        this.price = price;
-        this.shortDescription = shortDescription;
-    }
 
 
-    public int getImage() {
-        return image;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-    */
 }

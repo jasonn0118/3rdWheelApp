@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a3rdwheel">
-    
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--Permissions for camera & gallery access for car photos-->
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions for camera & gallery access for car photos -->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3rdWheel">
-        <activity android:name=".userprofile.SellerProfileActivity"/>
-        <activity android:name=".userprofile.UserProfile"/>
-        <activity android:name=".HostCarDetailActivity"></activity>
+        <activity android:name=".UserCarActivity"></activity>
+        <activity android:name=".userprofile.SellerProfileActivity" />
+        <activity android:name=".userprofile.UserProfile" />
+        <activity android:name=".HostCarDetailActivity" />
         <activity android:name=".HostNewCarActivity" />
         <activity android:name=".HostActivity" />
         <activity android:name=".RentalActivity">
@@ -26,13 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegisterActivity">
-
-        </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

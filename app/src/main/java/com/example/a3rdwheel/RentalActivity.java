@@ -46,17 +46,12 @@ public class RentalActivity extends AppCompatActivity {
     private CardStackAdapter cardAdapter;
     private CardStackView cardStackView;
 
-    private CarListAdapter userListAdapter;
-    private boolean userLike = false;
-
+    Car currentCar;
     private ArrayList<Car> carList= new ArrayList<>();
     private ArrayList<Car> userCarList= new ArrayList<>();
 
     //firebase
     private DatabaseReference dbRef;
-
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +64,9 @@ public class RentalActivity extends AppCompatActivity {
         FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
         transaction.add(R.id.rental_frm_navigation, fvt).commit();     //trans process(container, fragment)
 
-        //add list to recycler view(user list)
-        recyclerView = findViewById(R.id.rvCarList);
-        linearLayoutManager = new LinearLayoutManager(this);
-
-
         //set card stack
         cardStackView = findViewById(R.id.card_stack_view);
+
         cardManager = new CardStackLayoutManager(this, new CardStackListener() {
 
             @Override
@@ -87,25 +78,25 @@ public class RentalActivity extends AppCompatActivity {
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right){
                     Toast.makeText(RentalActivity.this, "Save it", Toast.LENGTH_SHORT).show();
-                    userLike = true;
+                    userCarList.add(currentCar);
                 }
                 if (direction == Direction.Left){
                     Toast.makeText(RentalActivity.this, "Remove it", Toast.LENGTH_SHORT).show();
+                    userCarList.remove(currentCar);
                 }
             }
 
             @Override
-            public void onCardRewound() {}
+            public void onCardRewound() {
+                userCarList.remove(currentCar);
+            }
 
             @Override
             public void onCardCanceled() {}
 
             @Override
             public void onCardAppeared(View view, int position) {
-                if (userLike == true){
-                    userCarList.add(cardAdapter.getItems().get(position-1));
-                    userListAdapter.notifyDataSetChanged();
-                }
+                currentCar = cardAdapter.getItems().get(position);
             }
 
             @Override
@@ -139,12 +130,24 @@ public class RentalActivity extends AppCompatActivity {
                 .setInterpolator(new DecelerateInterpolator())
                 .build();
         cardManager.setRewindAnimationSetting(setting);
+
         //when click rewind button, rewind feature will be run
         Button btnRewind = findViewById(R.id.btnRewind);
         btnRewind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cardStackView.rewind();
+            }
+        });
+
+        //intent to user car list
+        Button btnUserList = findViewById(R.id.btnUserList);
+        btnUserList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RentalActivity.this, UserCarActivity.class);
+                intent.putExtra("userList", userCarList);
+                startActivity(intent);
             }
         });
 
@@ -175,10 +178,6 @@ public class RentalActivity extends AppCompatActivity {
                 cardAdapter.notifyDataSetChanged();
                 cardStackView.setLayoutManager(cardManager);
                 cardStackView.setItemAnimator(new DefaultItemAnimator());
-
-                recyclerView.setLayoutManager(linearLayoutManager);
-                userListAdapter = new CarListAdapter(getApplicationContext(), userCarList);
-                recyclerView.setAdapter(userListAdapter);
 
             }
 

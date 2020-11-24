@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtViewPrice"
+        android:id="@+id/txtViewBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -43,12 +43,13 @@
         app:layout_constraintTop_toBottomOf="@+id/txtViewType" />
 
     <TextView
-        android:id="@+id/txtViewShortDescription"
+        android:id="@+id/txtViewModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/txtViewBrand" />
 </androidx.constraintlayout.widget.ConstraintLayout>

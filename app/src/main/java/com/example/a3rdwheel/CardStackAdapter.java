@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,14 +44,14 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
-        TextView type, year, brand;
+        TextView type, brand, model;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             type = itemView.findViewById(R.id.item_type);
-            year = itemView.findViewById(R.id.item_year);
-            brand = itemView.findViewById(R.id.item_price);
+            brand = itemView.findViewById(R.id.item_brand);
+            model = itemView.findViewById(R.id.item_model);
 
             //item click event here
         }
@@ -60,8 +59,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         void setData(Car data){
             Glide.with(mContext).load(data.getImageUrl()).into(image);
             type.setText(data.getType());
-            year.setText(data.getYear());
             brand.setText(data.getBrand());
+            model.setText(data.getModel());
         }
     }
 
