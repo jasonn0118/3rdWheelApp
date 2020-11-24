@@ -93,6 +93,17 @@
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:src="@drawable/ic_edit" />
+
+        <ImageView
+            android:id="@+id/user_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_back" />
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
