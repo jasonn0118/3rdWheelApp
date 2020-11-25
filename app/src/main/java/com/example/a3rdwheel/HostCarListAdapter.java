@@ -18,11 +18,11 @@ import java.util.List;
  */
 
 public class HostCarListAdapter extends RecyclerView.Adapter<HostCarListAdapter.CarViewHolder> {
-    List<String> carDisplayList;
+    List<FirebaseCar> carDisplayList;
     Context cntxt;
 
     //constructor
-    public HostCarListAdapter(Context context, List<String> carList){
+    public HostCarListAdapter(Context context, List<FirebaseCar> carList){
         this.carDisplayList = carList;
         this.cntxt = context;
     }
@@ -45,7 +45,7 @@ public class HostCarListAdapter extends RecyclerView.Adapter<HostCarListAdapter.
     //on item created into viewholder
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
-        holder.carName.setText(carDisplayList.get(position));
+        holder.carName.setText(carDisplayList.get(position).name);
 
         //attach interface onclick functions
         holder.carItemView.setOnClickListener(new View.OnClickListener() {

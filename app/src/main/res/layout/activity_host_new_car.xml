@@ -34,7 +34,7 @@
             android:text="Add Car"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_AvailableDate" />
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarModel" />
 
         <TextView
             android:id="@+id/hostnew_lbl_CarName"
@@ -44,15 +44,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/hostnew_txt_name" />
-
-        <TextView
-            android:id="@+id/hostnew_lbl_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fare/Day: "
-            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
 
         <EditText
             android:id="@+id/hostnew_txt_name"
@@ -65,35 +56,15 @@
             app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_CarName"
             app:layout_constraintTop_toBottomOf="@+id/hostnew_lbl_RentSell" />
 
-        <EditText
-            android:id="@+id/hostnew_txt_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Car Fare"
-            android:inputType="numberDecimal"
-            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_price"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_name" />
-
         <TextView
             android:id="@+id/hostnew_lbl_RentSell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rent out a car"
+            android:text="Add a car"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/hostnew_lbl_FareBy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/day"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_price"
-            app:layout_constraintStart_toEndOf="@+id/hostnew_txt_price"
-            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_price" />
 
         <ImageView
             android:id="@+id/hostnew_img_Car"
@@ -101,7 +72,7 @@
             android:layout_height="140dp"
             app:layout_constraintEnd_toEndOf="@+id/hostnew_txt_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_price"
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_name"
             app:srcCompat="@drawable/ic_default_car" />
 
         <TextView
@@ -115,61 +86,43 @@
             app:layout_constraintTop_toBottomOf="@+id/hostnew_img_Car" />
 
         <TextView
-            android:id="@+id/hostnew_lbl_description"
+            android:id="@+id/hostnew_lbl_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description: "
-            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarDescription"
+            android:text="Type: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarType"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarDescription" />
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarType" />
 
         <EditText
-            android:id="@+id/hostnew_txt_CarDescription"
+            android:id="@+id/hostnew_txt_CarType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Description"
+            android:hint="Type"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_description"
+            app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_type"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <Button
-            android:id="@+id/hostnew_btn_AvailableDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select availability date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarLocation" />
-
-        <TextView
-            android:id="@+id/hostnew_txt_AvailableDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_btn_AvailableDate" />
 
         <TextView
             android:id="@+id/hostnew_lbl_CarLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location: "
-            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarLocation"
+            android:text="Model: "
+            app:layout_constraintBottom_toBottomOf="@+id/hostnew_txt_CarModel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarLocation" />
+            app:layout_constraintTop_toTopOf="@+id/hostnew_txt_CarModel" />
 
         <EditText
-            android:id="@+id/hostnew_txt_CarLocation"
+            android:id="@+id/hostnew_txt_CarModel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Car location"
+            android:hint="Model"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/hostnew_lbl_CarLocation"
-            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/hostnew_txt_CarType" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

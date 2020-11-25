@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,25 +44,18 @@ public class HostNewCarActivity extends AppCompatActivity {
     private final int CAMERA_CODE = 1;
     private final int GALLERY_CODE = 2;
 
+    private DatabaseReference database;
+    private FirebaseDatabase fbInstance;
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_new_car);
 
-        //get extra data: is this a car for sale?
-        boolean salePage = getIntent().getBooleanExtra("SELLNEW",false);
-        if(salePage){ //if new car is for sale, switch displays
-            Button rangePickButton = findViewById(R.id.hostnew_btn_AvailableDate);
-            EditText carPriceTxt = findViewById(R.id.hostnew_txt_price);
-            TextView carPriceLbl = findViewById(R.id.hostnew_lbl_price);
-            TextView rentSellLbl = findViewById(R.id.hostnew_lbl_RentSell);
-            TextView fareLbl = findViewById(R.id.hostnew_lbl_FareBy);
-            rangePickButton.setVisibility(View.GONE);
-            fareLbl.setVisibility(View.GONE);
-            rentSellLbl.setText("Put new car for sale");
-            carPriceLbl.setText("Car Price ($): ");
-            carPriceTxt.setHint("Price of car");
-        }
+        //Firebase Reference
+        fbInstance = FirebaseDatabase.getInstance();
+        database = fbInstance.getReference("cars");
 
         //imageview onClick: Select photo of car -> Dialogbox
         ImageView newCarImage = findViewById(R.id.hostnew_img_Car);
@@ -103,7 +99,7 @@ public class HostNewCarActivity extends AppCompatActivity {
             }
         });
 
-        //button to generate DateRangePicker dialog for car's availability
+        /*/button to generate DateRangePicker dialog for car's availability
         Button rangePickButton = findViewById(R.id.hostnew_btn_AvailableDate);
         rangePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,13 +118,49 @@ public class HostNewCarActivity extends AppCompatActivity {
                 });
                 rangePicker.show(getSupportFragmentManager(),"RangePicker");
             }
-        });
+        });*/
 
         //cancel button- ends the activity
         Button cancelBtn = findViewById(R.id.hostnew_btn_cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //confirm button
+        Button confirmBtn = findViewById(R.id.hostnew_btn_add);
+        confirmBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //get datas from interface
+                TextView nameTxt = findViewById(R.id.hostnew_txt_name);
+                TextView modelTxt = findViewById(R.id.hostnew_txt_CarModel);
+                TextView typeTxt = findViewById(R.id.hostnew_txt_CarType);
+                String carname = nameTxt.getText().toString();
+                String carmodel = modelTxt.getText().toString();
+                String carType = typeTxt.getText().toString();
+
+                //TODO: Image handling?
+
+                if(carname.isEmpty() || carmodel.isEmpty() || carType.isEmpty()){
+                    //missing data
+                    Toast.makeText(getBaseContext(),"Car is missing data!",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                //get user key
+                if (TextUtils.isEmpty(userId)) {
+                    userId = database.push().getKey();
+                }
+
+                //Car Object
+                FirebaseCar newCar = new FirebaseCar(carType,carname,carmodel);
+
+                //send to Firebase
+                database.child(userId).setValue(newCar);
+                Toast.makeText(getBaseContext(),"New car added!",Toast.LENGTH_LONG).show();
                 finish();
             }
         });

@@ -1,7 +1,7 @@
 package com.example.a3rdwheel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,15 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 // Standard client may become host when they enter this page.
@@ -26,11 +32,11 @@ import java.util.List;
 
 public class HostActivity extends AppCompatActivity {
 
-    boolean host = false;   //is this user a host?
+    FirebaseUser currentUser;   //user Object: The user currently logged in
 
-    //TODO: PLACEHOLDER. get car datas From database
-    List<String> rentCars = new ArrayList<>(Arrays.asList("SUV","Minivan","Pickup","Campervan"));
-    List<String> saleCars = new ArrayList<>(Arrays.asList("Truck","Micro","Sedan"));
+    List<FirebaseCar> carList = new ArrayList<>();
+    List<FirebasePost> rentPosts = new ArrayList<>();
+    List<FirebasePost> salePosts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,61 +49,171 @@ public class HostActivity extends AppCompatActivity {
         FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
         transaction.add(R.id.host_fragment_navigation, fvt).commit();     //trans process(container, fragment)
 
-        RecyclerView carListDisplay = findViewById(R.id.host_rcycl_CarList);
+        RecyclerView carListDisplay = findViewById(R.id.host_rcycl_DisplayList);
         carListDisplay.setLayoutManager(new LinearLayoutManager(this));
 
-        //TODO: detect if user is a host
-        //host = isUserHost(userId);
+        //detect if user is a host
+        //connect to firebase
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //find who is the user
+        String currentUserEmail = fAuth.getInstance().getCurrentUser().getEmail();
+
+        //refer to user roles only
+        DatabaseReference ref = database.getReference("user");
+
+        /*/own value event listener
+        ValueEventListener userHostRoleVEListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //if snapShotted user (one user in database) has matching email...
+                FirebaseUser targetUser = snapshot.getValue(FirebaseUser.class);
+                if(targetUser.Email.equals(currentUserEmail)){
+                    //check if user role is HOST
+                    if(targetUser.User_Role.contains("HOST")){
+                        //then this current user is target user
+                        currentUser = targetUser;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("HOSTHUB","Error connecting to DB to ascertain host status.");
+            }
+        };
+        ref.addValueEventListener(userHostRoleVEListener);*/
+
         //switch triggers -> change recycler datas
-        displayCarsBySwitches();
+        displayPostsBySwitches();
         Switch displayRentSwitch = findViewById(R.id.host_switch_ViewRent);
         displayRentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                displayCarsBySwitches();
+                displayPostsBySwitches();
             }
         });
         Switch displaySellSwitch = findViewById(R.id.host_switch_ViewSell);
         displaySellSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                displayCarsBySwitches();
+                displayPostsBySwitches();
             }
         });
+        //change the list to change data from Cars || Posts
+        Switch displayDataKindSwitch = findViewById(R.id.host_switch_ViewPosts);
+        displayDataKindSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                RecyclerView rcyclDisplayList = findViewById(R.id.host_rcycl_DisplayList);
+                Switch displaySellSwitch = findViewById(R.id.host_switch_ViewSell);
+                Switch displayRentSwitch = findViewById(R.id.host_switch_ViewRent);
+                TextView headingLabel = findViewById(R.id.host_lbl_DisplayKind);
 
-        //buttons to rent out/put on sale a new car
-        Button rentNewButton = findViewById(R.id.host_btn_NewRent);
-        rentNewButton.setOnClickListener(new View.OnClickListener() {
+                if(displayDataKindSwitch.isChecked()){  //if checked, display POSTS
+                    headingLabel.setText("Your car posts");
+                    displaySellSwitch.setVisibility(View.VISIBLE);
+                    displayRentSwitch.setVisibility(View.VISIBLE);
+
+                    displayPostsBySwitches();
+
+                } else { //if not checked, display CARS
+                    headingLabel.setText("Your cars");
+                    displaySellSwitch.setVisibility(View.GONE);
+                    displayRentSwitch.setVisibility(View.GONE);
+
+                    rcyclDisplayList.setAdapter(new HostCarListAdapter(getBaseContext(),carList));
+                }
+            }
+        });
+        displayDataKindSwitch.setChecked(true); //trigger switch to true
+
+        //buttons to rent out/put on sale a new post
+        Button createPostBtn = findViewById(R.id.host_btn_CreatePost);
+        createPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //go to host new car
-               startActivity(new Intent(getBaseContext(),HostNewCarActivity.class));
+                //go to host new car, but with extra
+                Intent newCarIntent = new Intent(getBaseContext(),HostNewPostActivity.class);
+                startActivity(newCarIntent);
             }
         });
-        Button sellNewButton = findViewById(R.id.host_btn_NewSale);
-        sellNewButton.setOnClickListener(new View.OnClickListener() {
+        //button to add a new car
+        Button createNewCar = findViewById(R.id.host_btn_NewCar);
+        createNewCar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //go to host new car, but with extra
                 Intent newCarIntent = new Intent(getBaseContext(),HostNewCarActivity.class);
-                newCarIntent.putExtra("SELLNEW", true);
                 startActivity(newCarIntent);
             }
         });
 
-        if(host){  //if user is a host, hide the layout for registering & display main layout
+        /*if(currentUser.User_Role.contains("HOST")){  //if user is a host, hide the layout for registering & display main layout
             ConstraintLayout hostRegLayout = findViewById(R.id.host_become_host);
             hostRegLayout.setVisibility(View.GONE);
             ConstraintLayout hostMainLayout = findViewById(R.id.host_main_layout);
-            hostMainLayout.setVisibility(View.VISIBLE);
+            hostMainLayout.setVisibility(View.VISIBLE);*/
+
+            //if actually host, get carlists & PostLists from DB
+            //get cars data
+            DatabaseReference carRef = database.getReference("cars");
+            carRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //reset car list
+                    carList = new ArrayList<>();
+
+                    //for each item in snapShot (which is a car json object)
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        FirebaseCar targetCar = child.getValue(FirebaseCar.class);
+                        carList.add(targetCar);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("HOSTHUB","Error in getting car listings");
+                }
+            });
+            //get PostList
+            DatabaseReference postRef = database.getReference("posts");
+            postRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //reset lists
+                    salePosts = new ArrayList<>();
+                    rentPosts = new ArrayList<>();
+
+                    //for each item in snapShot (which is a POST json object)
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        FirebasePost targetPost = child.getValue(FirebasePost.class);
+                        if(targetPost.posting_type){
+                            salePosts.add(targetPost);
+                        } else {
+                            rentPosts.add(targetPost);
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("HOSTHUB","Error in getting post listings");
+                }
+            });
         }
 
         //attach registration buttons for becoming a host (or not)
-        Button registerToHost = findViewById(R.id.host_become_host_btn_register);
+        /*Button registerToHost = findViewById(R.id.host_become_host_btn_register);
         registerToHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: set database user role as 'host'
+                //TODO: add database user role as 'host'
+                DatabaseReference usersRef = database.getReference("Users");
+                usersRef.child(currentUser.User_ID+"").setValue(currentUser.User_Role.add("HOST"));
+
                 //hide the registration, show the main layout
                 ConstraintLayout hostRegLayout = findViewById(R.id.host_become_host);
                 hostRegLayout.setVisibility(View.GONE);
@@ -113,14 +229,13 @@ public class HostActivity extends AppCompatActivity {
                 //if do not become a host then quit
                 finish();
             }
-        });
-    }
+        });*/
+    //}
 
-    //TODO: OnResume or OnReturn to this activity, refresh adapter data list
-
-    private void displayCarsBySwitches(){
+    //switch post filtering based on switches.
+    private void displayPostsBySwitches(){
         //interface views
-        RecyclerView carListDisplay = findViewById(R.id.host_rcycl_CarList);
+        RecyclerView rcyclDisplayList = findViewById(R.id.host_rcycl_DisplayList);
         Switch displayRentSwitch = findViewById(R.id.host_switch_ViewRent);
         Switch displaySellSwitch = findViewById(R.id.host_switch_ViewSell);
         boolean showRent = displayRentSwitch.isChecked();
@@ -128,16 +243,23 @@ public class HostActivity extends AppCompatActivity {
 
         //set adapter data defined by switch values
         if(showRent && showSell){           //if show both cars for rent & sale
-            List<String> combinedList = new ArrayList<>();
-            combinedList.addAll(rentCars);
-            combinedList.addAll(saleCars);
-            carListDisplay.setAdapter(new HostCarListAdapter(getBaseContext(),combinedList));
+            List<FirebasePost> combinedList = new ArrayList<>();
+            combinedList.addAll(rentPosts);
+            combinedList.addAll(salePosts);
+            rcyclDisplayList.setAdapter(new HostPostListAdapter(getBaseContext(),combinedList));
         }else if (showRent && !showSell){   //if show only rent
-            carListDisplay.setAdapter(new HostCarListAdapter(getBaseContext(),rentCars));
+            rcyclDisplayList.setAdapter(new HostPostListAdapter(getBaseContext(),rentPosts));
         } else if (!showRent && showSell){  //if show only sell
-            carListDisplay.setAdapter(new HostCarListAdapter(getBaseContext(),saleCars));
+            rcyclDisplayList.setAdapter(new HostPostListAdapter(getBaseContext(),salePosts));
         } else {                            //if show nothing
-            carListDisplay.setAdapter(new HostCarListAdapter(getBaseContext(),new ArrayList<>()));
+            rcyclDisplayList.setAdapter(new HostPostListAdapter(getBaseContext(),new ArrayList<>()));
         }
     }
+
+    //fill list with cars
+    private void displayCars(){
+        RecyclerView rcyclListDisplay = findViewById(R.id.host_rcycl_DisplayList);
+        rcyclListDisplay.setAdapter(new HostCarListAdapter(getBaseContext(),carList));
+    }
+
 }
