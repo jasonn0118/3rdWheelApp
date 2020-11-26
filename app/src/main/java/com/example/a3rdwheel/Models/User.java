@@ -4,8 +4,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class User {
 
-    private String userId, email, firstName, lastName, gender;
-    private int age;
+    private String userId, email, firstName, lastName, gender, age, phone, driverLN;
+
     //TODO: Driver licence is private information, we should store it as a secret value.
     public User() {
 
@@ -13,6 +13,35 @@ public class User {
 
     public User(String newEmail) {
         this.email = newEmail;
+    }
+
+    public User(String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
+        this.firstName = newFirstName;
+        this.lastName = newLastName;
+        this.gender = newGender;
+        this.phone = newPhone;
+        this.age = newAge;
+        this.driverLN = newDriver;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getDriverLN() {
+        return driverLN;
+    }
+
+    public void setDriverLN(String driverLN) {
+        this.driverLN = driverLN;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserId() {
@@ -55,11 +84,4 @@ public class User {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 }

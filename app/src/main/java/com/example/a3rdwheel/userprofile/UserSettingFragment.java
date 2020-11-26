@@ -6,14 +6,26 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.example.a3rdwheel.Models.User;
 import com.example.a3rdwheel.R;
+import com.example.a3rdwheel.RegisterActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +38,7 @@ public class UserSettingFragment extends Fragment {
     private static final int HOST = 1;
     private String firstName;
     private String lastName;
-    private String email;
+    private String age;
     private String phone;
     private String gender;
     private String driver;
@@ -34,6 +46,8 @@ public class UserSettingFragment extends Fragment {
     private static final int NONE = 2;
     public int mRadioButtonChoice = NONE;
     OnFragmentInteractionListener mListener;
+    private FirebaseAuth fAuth;
+    private DatabaseReference mDatabaseRef;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +91,8 @@ public class UserSettingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        fAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -90,7 +106,7 @@ public class UserSettingFragment extends Fragment {
         Button btnSave = rootView.findViewById(R.id.user_submit);
         EditText userFirstName = rootView.findViewById(R.id.edit_user_firstname);
         EditText userLastName = rootView.findViewById(R.id.edit_user_lastname);
-        EditText userEmail = rootView.findViewById(R.id.edit_user_email);
+        EditText userAge = rootView.findViewById(R.id.edit_user_age);
         EditText userGender = rootView.findViewById(R.id.edit_user_gender);
         EditText userPhone = rootView.findViewById(R.id.edit_user_phone);
         EditText userDrive = rootView.findViewById(R.id.edit_user_drive);
@@ -122,18 +138,38 @@ public class UserSettingFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseUser currentUser = fAuth.getCurrentUser();
+                assert currentUser != null;
+                String fUid = currentUser.getUid();
+                Log.i("PROFILE FRAG", "User ID From FAuth: " + fUid);
 
                 firstName = userFirstName.getText().toString();
                 lastName = userLastName.getText().toString();
                 gender = userGender.getText().toString();
-                email = userEmail.getText().toString();
+                age = userAge.getText().toString();
                 phone = userPhone.getText().toString();
                 driver = userDrive.getText().toString();
 
-                mListener.getUserName(firstName,lastName,gender,email,phone,driver);
+                mListener.getUserName(firstName, lastName, gender, age, phone, driver);
+                User user = new User(firstName, lastName, gender, age, phone,  driver);
+                updateUserInfoToDB(fUid, user);
+                   
             }
         });
         return rootView;
+    }
+
+    private void updateUserInfoToDB(String fUid, User updateUser ) {
+        FirebaseDatabase.getInstance().getReference("users").child(fUid).setValue(updateUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    Log.i("PROFILE FRAG", "Success!!");
+                } else {
+                    Log.i("PROFILE FRAG", "Fail!!");
+                }
+            }
+        });
     }
 
     @Override

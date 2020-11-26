@@ -70,16 +70,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email :"
+                android:text="Age: "
                 android:textColor="@color/primaryColor"
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/edit_user_email"
+                android:id="@+id/edit_user_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:hint="Type E-mail"
+                android:hint="Type Age"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>

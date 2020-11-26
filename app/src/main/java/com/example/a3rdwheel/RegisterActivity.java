@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         Log.i(TAG, "CURRENT USER:  " + fAuth.getCurrentUser());
 
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), RentalActivity.class));
             finish();
         }
 
@@ -134,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), RentalActivity.class));
                     finish();
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error!: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
