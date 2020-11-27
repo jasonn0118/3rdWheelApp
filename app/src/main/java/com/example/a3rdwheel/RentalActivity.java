@@ -155,7 +155,7 @@ public class RentalActivity extends AppCompatActivity {
 
     private void GetDataFromFirebase() {
 
-        Query query = dbRef.child("cars");
+        Query query = dbRef.child("car");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -169,6 +169,7 @@ public class RentalActivity extends AppCompatActivity {
                     car.setModel(snapshot.child("model").getValue().toString());
                     car.setType(snapshot.child("type").getValue().toString());
                     car.setYear(snapshot.child("year").getValue().toString());
+                    car.setPrice(snapshot.child("price").getValue().toString());
 
                     carList.add(car);
                 }

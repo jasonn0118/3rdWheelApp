@@ -44,7 +44,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
-        TextView type, brand, model;
+        TextView type, brand, model, price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,8 +52,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             type = itemView.findViewById(R.id.item_type);
             brand = itemView.findViewById(R.id.item_brand);
             model = itemView.findViewById(R.id.item_model);
-
-            //item click event here
+            price = itemView.findViewById(R.id.item_price);
         }
 
         void setData(Car data){
@@ -61,6 +60,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             type.setText(data.getType());
             brand.setText(data.getBrand());
             model.setText(data.getModel());
+            price.setText("$" + data.getPrice() + "/day");
         }
     }
 

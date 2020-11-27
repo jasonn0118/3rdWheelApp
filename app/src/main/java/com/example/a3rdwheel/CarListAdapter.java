@@ -1,13 +1,19 @@
 package com.example.a3rdwheel;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +24,9 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
     private List<Car> catList;
     private Context mContext;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    Dialog mDialog;
 
     public CarListAdapter(Context mContext, List<Car> carList) {
         this.mContext = mContext;
@@ -44,21 +53,32 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView type, brand, model;
+        TextView price, brand, model;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.imgViewPhoto);
-            type = itemView.findViewById(R.id.txtViewType);
+            price = itemView.findViewById(R.id.txtViewPrice);
             brand = itemView.findViewById(R.id.txtViewBrand);
             model = itemView.findViewById(R.id.txtViewModel);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                    CardetailFragment cardetailFragment = new CardetailFragment();
+                    activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_carDetail, cardetailFragment).addToBackStack(null).commit();
+                }
+            });
         }
 
         void setData(Car data){
             Glide.with(mContext).load(data.getImageUrl()).into(image);
-            type.setText(data.getType());
+            price.setText("$" + data.getPrice() + "/day");
             brand.setText(data.getBrand());
             model.setText(data.getModel());
         }
+
+
     }
 }

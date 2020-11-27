@@ -15,21 +15,19 @@ public class Car implements Serializable {
 
     //FirebaseStorage mFire
     String imageUrl;
-
-    //StorageReference data = storage
-//    public int year;
-    public String brand, model, type, year;
+    public String brand, model, type, year, price;
 
     public Car() {
 
     }
 
-    public Car(String imageUrl, String year, String brand, String model, String type) {
+    public Car(String imageUrl, String year, String brand, String model, String type, String price) {
         this.imageUrl = imageUrl;
         this.year = year;
         this.brand = brand;
         this.model = model;
         this.type = type;
+        this.price = price;
     }
 
     public String getImageUrl() {
@@ -72,6 +70,11 @@ public class Car implements Serializable {
         this.type = type;
     }
 
+    public String getPrice() {
+        return price;
+    }
 
-
+    public void setPrice(String price) {
+        this.price = price;
+    }
 }
