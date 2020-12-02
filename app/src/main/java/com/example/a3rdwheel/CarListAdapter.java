@@ -3,6 +3,7 @@ package com.example.a3rdwheel;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,14 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     private FragmentTransaction fragmentTransaction;
     Dialog mDialog;
 
+    OnItemClickListener listener;
+
+    public static interface OnItemClickListener{
+        public void onItemClick(ViewHolder holder, View v, Car data);
+    }
+
+
+
     public CarListAdapter(Context mContext, List<Car> carList) {
         this.mContext = mContext;
         this.catList = carList;
@@ -44,6 +53,26 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setData(catList.get(position));
+//        holder.setOnItemClickListener(listener);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Car data = catList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("brand", data.getBrand());
+                bundle.putString("type", data.getType());
+                bundle.putString("model", data.getModel());
+                bundle.putString("year", data.getYear());
+                bundle.putString("trip", data.getTrip());
+
+                CardetailFragment cardetailFragment = new CardetailFragment();
+                cardetailFragment.setArguments(bundle);
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_carDetail, cardetailFragment).addToBackStack(null).commit();
+
+            }
+        });
+
     }
 
     @Override
@@ -55,6 +84,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
         ImageView image;
         TextView price, brand, model;
 
+        OnItemClickListener listener;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.imgViewPhoto);
@@ -62,14 +93,6 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
             brand = itemView.findViewById(R.id.txtViewBrand);
             model = itemView.findViewById(R.id.txtViewModel);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                    CardetailFragment cardetailFragment = new CardetailFragment();
-                    activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_carDetail, cardetailFragment).addToBackStack(null).commit();
-                }
-            });
         }
 
         void setData(Car data){
@@ -79,6 +102,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
             model.setText(data.getModel());
         }
 
-
+        public void setOnItemClickListener(OnItemClickListener listener){
+            this.listener = listener;
+        }
     }
 }

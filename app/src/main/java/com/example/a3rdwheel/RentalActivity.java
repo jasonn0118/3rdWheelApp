@@ -170,6 +170,7 @@ public class RentalActivity extends AppCompatActivity {
                     car.setType(snapshot.child("type").getValue().toString());
                     car.setYear(snapshot.child("year").getValue().toString());
                     car.setPrice(snapshot.child("price").getValue().toString());
+                    car.setTrip(snapshot.child("trip").getValue().toString());
 
                     carList.add(car);
                 }

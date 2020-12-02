@@ -14,9 +14,7 @@ import android.widget.TextView;
  * Use the {@link CardetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CardetailFragment extends Fragment {
-
-    private String mcarBrand, mcarType, mcarModel, mcarYear, mhostName, mhostEmail, mhostPhone;
+public class CardetailFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,22 +65,26 @@ public class CardetailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_cardetail, container, false);
-        final TextView carBrand = rootView.findViewById(R.id.carDetailBrand);
-        final TextView carType = rootView.findViewById(R.id.carDetailType);
-        final TextView carModel = rootView.findViewById(R.id.carDetailModel);
-        final TextView carYear = rootView.findViewById(R.id.carDetailYear);
+        final TextView carTrip = rootView.findViewById(R.id.carDetailTrip);
+        final TextView carBrand = rootView.findViewById(R.id.tvCarDetailBrand);
+        final TextView carType = rootView.findViewById(R.id.tvCarDetailType);
+        final TextView carModel = rootView.findViewById(R.id.tvCarDetailModel);
+        final TextView carYear = rootView.findViewById(R.id.tvCarDetailYear);
 
         final TextView hostName = rootView.findViewById(R.id.carDetailHostName);
-        final TextView hostEmail = rootView.findViewById(R.id.carDetailHostEmail);
-        final TextView hostPhone = rootView.findViewById(R.id.carDetailHostPhone);
+        final TextView hostEmail = rootView.findViewById(R.id.tvCarDetailHostEmail);
+        final TextView hostPhone = rootView.findViewById(R.id.tvCarDetailHostPhone);
 
-//        mcarBrand = carBrand.getText().toString();
-//        mcarType = carType.getText().toString();
-//        mcarModel = carModel.getText().toString();
-//        mcarYear = carYear.getText().toString();
-//
-//
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            carBrand.setText(bundle.get("brand").toString());
+            carType.setText(bundle.get("type").toString());
+            carModel.setText(bundle.get("model").toString());
+            carYear.setText(bundle.get("year").toString());
+            carTrip.setText(bundle.get("trip").toString() + " trips completed");
+        }
 
-        return rootView;
+    return rootView;
     }
+
 }
