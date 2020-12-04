@@ -218,8 +218,7 @@ public class UserSettingFragment extends Fragment {
     }
 
     private void writeUpdateUser(String userId, String email, String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
+
         String key = mDatabaseRef.child("users").child(userId).getKey();
         Log.i("PROFILE FRAG", "KEY: " +key);
         User user = new User(email, newFirstName, newLastName, newGender, newAge, newPhone, newDriver);
