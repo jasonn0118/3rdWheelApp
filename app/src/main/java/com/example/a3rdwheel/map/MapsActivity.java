@@ -45,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng benz = new LatLng(49.212038, -122.908667);
     LatLng jeep = new LatLng(49.191508, -122.933605);
     LatLng minicooper = new LatLng(49.213334, -122.937397);
+    LatLng cadillac = new LatLng (49.193999, -122.889044);
 
 
     @Override
@@ -60,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         arrayList.add(benz);
         arrayList.add(jeep);
         arrayList.add(minicooper);
+        arrayList.add(cadillac);
 
         Button gotoList = findViewById(R.id.btn_map_to_list);
 
@@ -87,11 +89,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mMap.addMarker(new MarkerOptions().position(benz).title("Benz"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(benz,15.0f));
                     }else if(location.contains("Jeep") || location.contains("jeep")){
-                        mMap.addMarker(new MarkerOptions().position(jeep).title("Benz"));
+                        mMap.addMarker(new MarkerOptions().position(jeep).title("Jeep"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(jeep,15.0f));
-                    } else if (location.contains("Mini Cooper") || location.contains("mini cooper")) {
-                        mMap.addMarker(new MarkerOptions().position(minicooper).title("Benz"));
+                    }else if (location.contains("Mini Cooper") || location.contains("mini cooper")) {
+                        mMap.addMarker(new MarkerOptions().position(minicooper).title("Mini Cooper"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(minicooper,15.0f));
+                    }else if (location.contains("Cadillac") || location.contains("cadillac")) {
+                        mMap.addMarker(new MarkerOptions().position(cadillac).title("Cadillac"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cadillac,15.0f));
                     }
                 }
                 return false;
@@ -126,8 +131,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(arrayList.get(2)).title("Benz"));
             mMap.addMarker(new MarkerOptions().position(arrayList.get(3)).title("Jeep"));
             mMap.addMarker(new MarkerOptions().position(arrayList.get(4)).title("Mini Cooper"));
+            mMap.addMarker(new MarkerOptions().position(arrayList.get(5)).title("Cadillac"));
 
-           // mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+
+            // mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(porsche));
 
