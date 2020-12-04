@@ -60,19 +60,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                //Authenticate the user.
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "User Logged in.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Error!: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+                //Info: Login method with firebase.
+                login(email, password);
+
             }
         });
 
@@ -80,6 +70,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
+    }
+
+    private void login(String email, String password) {
+        //Authenticate the user.
+        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                if(task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this, "User Logged in.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), RentalActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error!: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
