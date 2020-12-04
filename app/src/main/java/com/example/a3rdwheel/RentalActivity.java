@@ -15,6 +15,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.a3rdwheel.map.MapsActivity;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -44,6 +45,15 @@ public class RentalActivity extends AppCompatActivity {
         FragmentManager fManager = getSupportFragmentManager();                 //manager to control
         FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
         transaction.add(R.id.rental_frm_navigation, fvt).commit();     //trans process(container, fragment)
+
+        Button gotoMap = findViewById(R.id.btn_list_to_map);
+
+        gotoMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RentalActivity.this, MapsActivity.class));
+            }
+        });
 
         manager = new CardStackLayoutManager(this, new CardStackListener() {
 

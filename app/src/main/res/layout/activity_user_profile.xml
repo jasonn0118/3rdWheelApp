@@ -29,7 +29,6 @@
                 android:background="@drawable/circle"
                 android:scaleType="centerInside"
                 android:src="@drawable/userprofile">
-
             </ImageView>
 
         </RelativeLayout>

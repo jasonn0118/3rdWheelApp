@@ -76,11 +76,11 @@ public class UserTripFragment extends Fragment {
 
         dataHolder = new ArrayList<>();
 
-        TripDataModel obj1 = new TripDataModel("Distance","0.00km","Vehicle","Prius",
+        TripDataModel obj1 = new TripDataModel("Distance","53.00km","Vehicle","Porsche",
                 "Service","Car Sharing","City", "Vancouver");
         dataHolder.add(obj1);
 
-        TripDataModel obj2 = new TripDataModel("Distance","0.00km","Vehicle","Prius",
+        TripDataModel obj2 = new TripDataModel("Distance","37.00km","Vehicle","Jeep",
                 "Service","Car Sharing","City", "Vancouver");
         dataHolder.add(obj2);
 

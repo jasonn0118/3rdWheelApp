@@ -8,11 +8,11 @@
 
     <SearchView
         android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="318dp"
+        android:layout_height="45dp"
         android:iconifiedByDefault="false"
         android:queryHint="Find Nearest Car"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_list_to_map"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,5 +77,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
+    <Button
+        android:id="@+id/btn_list_to_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:layout_marginRight="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

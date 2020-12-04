@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.a3rdwheel.R;
 
@@ -129,8 +130,8 @@ public class UserSettingFragment extends Fragment {
                 email = userEmail.getText().toString();
                 phone = userPhone.getText().toString();
                 driver = userDrive.getText().toString();
-
                 mListener.getUserName(firstName,lastName,gender,email,phone,driver);
+                Toast.makeText(getActivity(), "Profile Info Updated",Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;
