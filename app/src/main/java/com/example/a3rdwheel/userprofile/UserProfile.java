@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,8 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
         ViewPager viewPager = findViewById(R.id.user_viewpager);
         ImageView imageView = findViewById(R.id.user_setting);
         ImageView logoutView = findViewById(R.id.user_logout);
+        ImageView backButton = findViewById(R.id.user_back);
+
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -98,8 +101,13 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                finish();
             }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              finish();
+          }
         });
 
         UserPagerAdapter userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
