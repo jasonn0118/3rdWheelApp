@@ -204,19 +204,6 @@ public class UserSettingFragment extends Fragment {
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
-    private void updateUserInfoToDB(String fUid, User updateUser ) {
-        FirebaseDatabase.getInstance().getReference("users").child(fUid).setValue(updateUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    Log.i("PROFILE FRAG", "Success!!");
-                } else {
-                    Log.i("PROFILE FRAG", "Fail!!");
-                }
-            }
-        });
-    }
-
     private void writeUpdateUser(String userId, String email, String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
