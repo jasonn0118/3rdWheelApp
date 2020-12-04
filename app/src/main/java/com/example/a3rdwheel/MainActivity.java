@@ -61,9 +61,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.main_frm_navigation, fvt).commit();     //trans process(container, fragment)
     }
 
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        finish();
-    }
+
 }

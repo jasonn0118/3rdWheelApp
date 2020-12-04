@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -48,6 +51,7 @@ public class UserSettingFragment extends Fragment {
     OnFragmentInteractionListener mListener;
     private FirebaseAuth fAuth;
     private DatabaseReference mDatabaseRef;
+    private FirebaseDatabase mDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,6 +97,10 @@ public class UserSettingFragment extends Fragment {
         }
 
         fAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        String userId = fAuth.getCurrentUser().getUid();
+
+
     }
 
     @Override
@@ -104,6 +112,7 @@ public class UserSettingFragment extends Fragment {
         final RadioGroup radioGroup = rootView.findViewById(R.id.radio_group);
 
         Button btnSave = rootView.findViewById(R.id.user_submit);
+        Button btnCancel = rootView.findViewById(R.id.user_cancel);
         EditText userFirstName = rootView.findViewById(R.id.edit_user_firstname);
         EditText userLastName = rootView.findViewById(R.id.edit_user_lastname);
         EditText userAge = rootView.findViewById(R.id.edit_user_age);
@@ -141,6 +150,7 @@ public class UserSettingFragment extends Fragment {
                 FirebaseUser currentUser = fAuth.getCurrentUser();
                 assert currentUser != null;
                 String fUid = currentUser.getUid();
+                String email = currentUser.getEmail();
                 Log.i("PROFILE FRAG", "User ID From FAuth: " + fUid);
 
                 firstName = userFirstName.getText().toString();
@@ -150,13 +160,48 @@ public class UserSettingFragment extends Fragment {
                 phone = userPhone.getText().toString();
                 driver = userDrive.getText().toString();
 
-                mListener.getUserName(firstName, lastName, gender, age, phone, driver);
-                User user = new User(firstName, lastName, gender, age, phone,  driver);
-                updateUserInfoToDB(fUid, user);
-                   
+                //Validation Check.
+                if(TextUtils.isEmpty(firstName)) {
+                    userFirstName.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(lastName)) {
+                    userLastName.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(gender)) {
+                    userGender.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(age)) {
+                    userAge.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(phone)) {
+                    userPhone.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(driver)) {
+                    userDrive.setError("This field is required.");
+                    return;
+                }
+
+                writeUpdateUser(fUid, email, firstName, lastName, gender, age, phone, driver);
+                closeFragment();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
             }
         });
         return rootView;
+    }
+
+    private void closeFragment() {
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void updateUserInfoToDB(String fUid, User updateUser ) {
@@ -172,6 +217,20 @@ public class UserSettingFragment extends Fragment {
         });
     }
 
+    private void writeUpdateUser(String userId, String email, String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+        String key = mDatabaseRef.child("users").child(userId).getKey();
+        Log.i("PROFILE FRAG", "KEY: " +key);
+        User user = new User(email, newFirstName, newLastName, newGender, newAge, newPhone, newDriver);
+        Map<String, Object> userValue = user.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/users/"+key, userValue);
+
+        mDatabaseRef.updateChildren(childUpdates);
+
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -185,6 +244,5 @@ public class UserSettingFragment extends Fragment {
 
     interface OnFragmentInteractionListener {
         void OnRadioButtonChoice(int choice);
-        void getUserName (String firstName, String lastName, String gender, String email, String phone, String driver);
     }
 }

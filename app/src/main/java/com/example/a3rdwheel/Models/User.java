@@ -1,10 +1,21 @@
 package com.example.a3rdwheel.Models;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @IgnoreExtraProperties
 public class User {
 
-    private String userId, email, firstName, lastName, gender, age, phone, driverLN;
+    private String userId;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private String age;
+    private String phone;
+    private String driverLN;
 
     //TODO: Driver licence is private information, we should store it as a secret value.
     public User() {
@@ -15,7 +26,8 @@ public class User {
         this.email = newEmail;
     }
 
-    public User(String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
+    public User(String email, String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
+        this.email = email;
         this.firstName = newFirstName;
         this.lastName = newLastName;
         this.gender = newGender;
@@ -23,6 +35,22 @@ public class User {
         this.age = newAge;
         this.driverLN = newDriver;
     }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+        result.put("firstName", firstName);
+        result.put("lastName", lastName);
+        result.put("gender", gender);
+        result.put("phone", phone);
+        result.put("age", age);
+        result.put("driverLN", driverLN);
+
+        return result;
+    };
+
+    public String getAge() { return age; }
 
     public void setAge(String age) {
         this.age = age;
