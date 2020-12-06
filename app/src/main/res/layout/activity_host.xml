@@ -57,6 +57,7 @@
         android:id="@+id/host_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,25 +75,13 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/host_btn_NewRent"
+            android:id="@+id/host_btn_CreatePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rent out a car"
+            android:text="Create car posting"
             app:layout_constraintBottom_toTopOf="@+id/host_fragment_navigation"
-            app:layout_constraintEnd_toStartOf="@+id/host_btn_NewSale"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/host_btn_NewSale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Put a car for sale"
-            app:layout_constraintBottom_toBottomOf="@+id/host_btn_NewRent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/host_btn_NewRent"
-            app:layout_constraintTop_toTopOf="@+id/host_btn_NewRent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Switch
             android:id="@+id/host_switch_ViewRent"
@@ -104,7 +93,7 @@
             app:layout_constraintEnd_toStartOf="@+id/host_switch_ViewSell"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/host_lbl_yourcar" />
+            app:layout_constraintTop_toBottomOf="@+id/host_lbl_DisplayKind" />
 
         <Switch
             android:id="@+id/host_switch_ViewSell"
@@ -117,28 +106,47 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/host_switch_ViewRent"
-            app:layout_constraintTop_toBottomOf="@+id/host_lbl_yourcar" />
+            app:layout_constraintTop_toBottomOf="@+id/host_lbl_DisplayKind" />
 
         <TextView
-            android:id="@+id/host_lbl_yourcar"
+            android:id="@+id/host_lbl_DisplayKind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Vehicles"
+            android:text="Your Posts"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/host_switch_ViewPosts" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/host_rcycl_CarList"
+            android:id="@+id/host_rcycl_DisplayList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="2dp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/host_btn_NewRent"
+            app:layout_constraintBottom_toTopOf="@+id/host_btn_NewCar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/host_switch_ViewRent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Switch
+            android:id="@+id/host_switch_ViewPosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Posts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/host_btn_NewCar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add a car"
+            app:layout_constraintBottom_toTopOf="@+id/host_btn_CreatePost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,17 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-//TODO: Build HOST UPDATE FUNCTION.
-
-public class HostCarDetailActivity extends AppCompatActivity {
+public class HostPostDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host_car_detail);
+        setContentView(R.layout.activity_host_post_detail);
 
         //button to quit
-        Button quitBtn = findViewById(R.id.hostcardetail_btn_quit);
+        Button quitBtn = findViewById(R.id.hostpostdetail_btn_quit);
         quitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

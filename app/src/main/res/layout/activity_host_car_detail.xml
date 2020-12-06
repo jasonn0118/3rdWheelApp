@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/ic_default_car" />
 
         <TextView
-            android:id="@+id/hostdetail_CarName"
+            android:id="@+id/hostcardetail_CarName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -38,25 +38,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/hostdetail_CarPrice"
+            android:id="@+id/hostcardetail_CarPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Car Price/Fare"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarRentSale" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_CarRentSale" />
 
         <TextView
-            android:id="@+id/hostdetail_CarRentSale"
+            android:id="@+id/hostcardetail_CarRentSale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="For Rent/Sale"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarName" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_CarName" />
 
         <TextView
-            android:id="@+id/hostdetail_CarBrowsed"
+            android:id="@+id/hostcardetail_CarBrowsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Times browsed"
@@ -64,41 +64,41 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/hostdetail_TimesRented"
+            android:id="@+id/hostcardetail_TimesRented"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Times Rented"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarBrowsed" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_CarBrowsed" />
 
         <TextView
-            android:id="@+id/hostdetail_CurrentStatus"
+            android:id="@+id/hostcardetail_CurrentStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Car Status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_CarLocation" />
 
         <TextView
-            android:id="@+id/hostdetail_CarDescript"
+            android:id="@+id/hostcardetail_CarDescript"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Car Description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_TimesRented" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_TimesRented" />
 
         <TextView
-            android:id="@+id/hostdetail_CarLocation"
+            android:id="@+id/hostcardetail_CarLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Car Location"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostdetail_CarDescript" />
+            app:layout_constraintTop_toBottomOf="@+id/hostcardetail_CarDescript" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/hostdetail_btn_quit"
+        android:id="@+id/hostcardetail_btn_quit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Done"
