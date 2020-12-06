@@ -1,12 +1,12 @@
 package com.example.a3rdwheel;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.a3rdwheel.map.MapsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +64,15 @@ public class RentalActivity extends AppCompatActivity {
         FragmentManager fManager = getSupportFragmentManager();                 //manager to control
         FragmentTransaction transaction = fManager.beginTransaction();          //transaction for actions
         transaction.add(R.id.rental_frm_navigation, fvt).commit();     //trans process(container, fragment)
+
+        Button gotoMap = findViewById(R.id.btn_list_to_map);
+
+        gotoMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RentalActivity.this, MapsActivity.class));
+            }
+        });
 
         //set card stack
         cardStackView = findViewById(R.id.card_stack_view);
