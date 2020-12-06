@@ -6,14 +6,29 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.example.a3rdwheel.Models.User;
 import com.example.a3rdwheel.R;
+import com.example.a3rdwheel.RegisterActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +41,7 @@ public class UserSettingFragment extends Fragment {
     private static final int HOST = 1;
     private String firstName;
     private String lastName;
-    private String email;
+    private String age;
     private String phone;
     private String gender;
     private String driver;
@@ -34,6 +49,9 @@ public class UserSettingFragment extends Fragment {
     private static final int NONE = 2;
     public int mRadioButtonChoice = NONE;
     OnFragmentInteractionListener mListener;
+    private FirebaseAuth fAuth;
+    private DatabaseReference mDatabaseRef;
+    private FirebaseDatabase mDatabase;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,6 +95,12 @@ public class UserSettingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        fAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        String userId = fAuth.getCurrentUser().getUid();
+
+
     }
 
     @Override
@@ -88,9 +112,10 @@ public class UserSettingFragment extends Fragment {
         final RadioGroup radioGroup = rootView.findViewById(R.id.radio_group);
 
         Button btnSave = rootView.findViewById(R.id.user_submit);
+        Button btnCancel = rootView.findViewById(R.id.user_cancel);
         EditText userFirstName = rootView.findViewById(R.id.edit_user_firstname);
         EditText userLastName = rootView.findViewById(R.id.edit_user_lastname);
-        EditText userEmail = rootView.findViewById(R.id.edit_user_email);
+        EditText userAge = rootView.findViewById(R.id.edit_user_age);
         EditText userGender = rootView.findViewById(R.id.edit_user_gender);
         EditText userPhone = rootView.findViewById(R.id.edit_user_phone);
         EditText userDrive = rootView.findViewById(R.id.edit_user_drive);
@@ -122,18 +147,75 @@ public class UserSettingFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseUser currentUser = fAuth.getCurrentUser();
+                assert currentUser != null;
+                String fUid = currentUser.getUid();
+                String email = currentUser.getEmail();
+                Log.i("PROFILE FRAG", "User ID From FAuth: " + fUid);
 
                 firstName = userFirstName.getText().toString();
                 lastName = userLastName.getText().toString();
                 gender = userGender.getText().toString();
-                email = userEmail.getText().toString();
+                age = userAge.getText().toString();
                 phone = userPhone.getText().toString();
                 driver = userDrive.getText().toString();
 
-                mListener.getUserName(firstName,lastName,gender,email,phone,driver);
+                //Validation Check.
+                if(TextUtils.isEmpty(firstName)) {
+                    userFirstName.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(lastName)) {
+                    userLastName.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(gender)) {
+                    userGender.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(age)) {
+                    userAge.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(phone)) {
+                    userPhone.setError("This field is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(driver)) {
+                    userDrive.setError("This field is required.");
+                    return;
+                }
+
+                writeUpdateUser(fUid, email, firstName, lastName, gender, age, phone, driver);
+                closeFragment();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
             }
         });
         return rootView;
+    }
+
+    private void closeFragment() {
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void writeUpdateUser(String userId, String email, String newFirstName, String newLastName, String newGender, String newAge, String newPhone, String newDriver) {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+        String key = mDatabaseRef.child("users").child(userId).getKey();
+        Log.i("PROFILE FRAG", "KEY: " +key);
+        User user = new User(email, newFirstName, newLastName, newGender, newAge, newPhone, newDriver);
+        Map<String, Object> userValue = user.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/users/"+key, userValue);
+
+        mDatabaseRef.updateChildren(childUpdates);
+
     }
 
     @Override
@@ -149,6 +231,5 @@ public class UserSettingFragment extends Fragment {
 
     interface OnFragmentInteractionListener {
         void OnRadioButtonChoice(int choice);
-        void getUserName (String firstName, String lastName, String gender, String email, String phone, String driver);
     }
 }

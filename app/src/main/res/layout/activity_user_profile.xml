@@ -39,9 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgUser"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="3dp"
             android:fontFamily="sans-serif-light"
-            android:layout_marginLeft="80dp"
             android:text="First Name"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -51,8 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgUser"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="19dp"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="70dp"
             android:layout_toEndOf="@+id/user_firstname"
             android:fontFamily="sans-serif-light"
             android:text="Last Name"
@@ -89,10 +93,32 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="53dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:src="@drawable/ic_edit" />
+
+        <ImageView
+            android:id="@+id/user_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_setting"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-27dp"
+            android:layout_marginEnd="17dp"
+            app:srcCompat="@drawable/ic_baseline_power_settings_new_24" />
+
+        <ImageView
+            android:id="@+id/user_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_back" />
+
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout

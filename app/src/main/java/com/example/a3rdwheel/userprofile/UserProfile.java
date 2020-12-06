@@ -1,32 +1,44 @@
 package com.example.a3rdwheel.userprofile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a3rdwheel.LoginActivity;
+import com.example.a3rdwheel.Models.User;
 import com.example.a3rdwheel.R;
 import com.example.a3rdwheel.userprofile.UserPagerAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserProfile extends AppCompatActivity implements UserSettingFragment.OnFragmentInteractionListener {
     private boolean isFragDisplayed = false;
     private int mRadioButtonChoice = 2;
-    private String firstNameFrag;
-    private String lastNameFrag;
-    private String genderFrag;
-    private String emailFrag;
-    private String phoneFrag;
-    private String driverFrag;
 
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
+    private DatabaseReference mDatabaseRef;
+
+    private static final String TAG = "UserProfile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,39 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
         TabItem tabBilling = findViewById(R.id.user_tabBilling);
         ViewPager viewPager = findViewById(R.id.user_viewpager);
         ImageView imageView = findViewById(R.id.user_setting);
+        ImageView logoutView = findViewById(R.id.user_logout);
+        ImageView backButton = findViewById(R.id.user_back);
+
+
+
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                Log.i(TAG, "Database Ref user: " + user);
+
+                String currUserFirstName = user.getFirstName();
+                String currUserLastName = user.getLastName();
+                String currUserGender = user.getGender();
+                String currUserEmail = user.getEmail();
+                String currUserPhone = user.getPhone();
+                String currUserDriverLn = user.getDriverLN();
+
+
+                assert user != null;
+                setViewText(currUserFirstName, currUserLastName, currUserGender, currUserEmail, currUserPhone, currUserDriverLn);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +94,20 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
                     displayFragment();
                 }
             }
+        });
+
+        logoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              finish();
+          }
         });
 
         UserPagerAdapter userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
@@ -103,8 +162,7 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
         }
     }
 
-    @Override
-    public void getUserName(String firstName, String lastName, String gender, String email, String phone, String driver) {
+    public void setViewText(String firstName, String lastName, String gender, String email, String phone, String driver) {
         TextView userFirstName = (TextView) findViewById(R.id.user_firstname);
         TextView userLastName = (TextView) findViewById(R.id.user_lastname);
         TextView userGender = (TextView) findViewById(R.id.user_txt_gender);
@@ -112,18 +170,13 @@ public class UserProfile extends AppCompatActivity implements UserSettingFragmen
         TextView userPhone = (TextView) findViewById(R.id.user_txt_phone);
         TextView userDriver = (TextView) findViewById(R.id.user_txt_driver);
 
-        firstNameFrag = firstName;
-        lastNameFrag = lastName;
-        genderFrag = gender;
-        emailFrag = email;
-        phoneFrag = phone;
-        driverFrag = driver;
+        userFirstName.setText(firstName);
+        userLastName.setText(lastName);
+        userGender.setText(gender);
+        userEmail.setText(email);
+        userPhone.setText(phone);
+        userDriver.setText(driver);
 
-        userFirstName.setText(firstNameFrag);
-        userLastName.setText(lastNameFrag);
-        userGender.setText(genderFrag);
-        userEmail.setText(emailFrag);
-        userPhone.setText(phoneFrag);
-        userDriver.setText(driverFrag);
     }
+
 }

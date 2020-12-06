@@ -21,6 +21,7 @@
         <activity android:name=".HostNewCarActivity" />
         <activity android:name=".HostActivity" />
         <activity android:name=".RentalActivity">
+          
         </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
