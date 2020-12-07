@@ -15,6 +15,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(rootProject.file("local.properties").newDataInputStream())
+        }
+
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [ mapsApiKey : properties.getProperty("AIzaSyD8lVDnH2xFwwQ0whvtDMGqhC8Qllqt678", "") ]
     }
     lintOptions {
         checkReleaseBuilds false
@@ -27,11 +35,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue("string","google_maps_api_key", "AIzaSyD8lVDnH2xFwwQ0whvtDMGqhC8Qllqt678")
+            resValue "string","google_maps_api_key", "[AIzaSyD8lVDnH2xFwwQ0whvtDMGqhC8Qllqt678]"
         }
-        debug{
-            resValue("string","google_maps_api_key", "AIzaSyCvL0lZpLF2LmdR-4SUblFpAnJivOookuU")
-        }
+//        debug{
+//            resValue "string","google_maps_api_key", "[AIzaSyCvL0lZpLF2LmdR-4SUblFpAnJivOookuU]"
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
