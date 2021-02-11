@@ -111,6 +111,8 @@ Address: Vancouver, BC, 🇨🇦
 
 Project Link: [https://github.com/jasonn0118/3rdWheelApp](https://github.com/jasonn0118/3rdWheelApp)
 
+See Demo: [https://youtu.be/BKBTvRXNZW8](https://youtu.be/BKBTvRXNZW8) 
+
 
 
 <!-- ACKNOWLEDGEMENTS -->
